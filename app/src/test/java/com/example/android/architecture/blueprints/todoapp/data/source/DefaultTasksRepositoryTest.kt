@@ -1,12 +1,17 @@
 package com.example.android.architecture.blueprints.todoapp.data.source
 
+import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.core.IsEqual
 import org.junit.Assert.*
 import org.junit.Before
 
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class DefaultTasksRepositoryTest {
 
     private val task1 = Task("Title1", "Description1")
@@ -36,58 +41,12 @@ class DefaultTasksRepositoryTest {
     }
 
     @Test
-    fun getTasks() {
+    fun getTasks_requestsAllTasksFromRemoteDataSource() = runBlockingTest {
+        // When tasks are requested from the tasks repository
+        val tasks = tasksRepository.getTasks(true) as Result.Success
+
+        // Then tasks are loaded from the remote data source
+        assertThat(tasks.data, IsEqual(remoteTasks))
     }
 
-    @Test
-    fun refreshTasks() {
-    }
-
-    @Test
-    fun observeTasks() {
-    }
-
-    @Test
-    fun refreshTask() {
-    }
-
-    @Test
-    fun observeTask() {
-    }
-
-    @Test
-    fun getTask() {
-    }
-
-    @Test
-    fun saveTask() {
-    }
-
-    @Test
-    fun completeTask() {
-    }
-
-    @Test
-    fun testCompleteTask() {
-    }
-
-    @Test
-    fun activateTask() {
-    }
-
-    @Test
-    fun testActivateTask() {
-    }
-
-    @Test
-    fun clearCompletedTasks() {
-    }
-
-    @Test
-    fun deleteAllTasks() {
-    }
-
-    @Test
-    fun deleteTask() {
-    }
 }
