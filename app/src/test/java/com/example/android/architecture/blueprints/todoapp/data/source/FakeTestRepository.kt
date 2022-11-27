@@ -71,4 +71,11 @@ class FakeTestRepository  : TasksRepository {
         TODO("Not yet implemented")
     }
 
+    fun addTasks(vararg tasks: Task) {
+        for (task in tasks) {
+            tasksServiceData[task.id] = task
+        }
+        runBlocking { refreshTasks() }
+    }
+
 }
