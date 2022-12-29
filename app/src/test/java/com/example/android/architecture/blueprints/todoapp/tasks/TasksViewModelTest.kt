@@ -46,7 +46,6 @@ class TasksViewModelTest {
     // Use a fake repository to be injected into the viewmodel
     private lateinit var tasksRepository: FakeTestRepository
 
-    @ExperimentalCoroutinesApi
     val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     // Executes each task synchronously using Architecture Components.
@@ -73,6 +72,10 @@ class TasksViewModelTest {
         Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
+    // WITH
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     @Test
     fun addNewTask_setsNewTaskEvent() {
